@@ -52,6 +52,13 @@ float costoCombustible(float cantUnidades, int tipoServi){
 	return costo;
 }
 
+//funcion para ir acomulando las facturaciones e cada servicio
+//asi luego mostramos el total de facturacion al minicipio: sera una funcion de parametro por referencia
+
+void facturacionMunicipio(float costoServicio, float *facturaMunicipio){
+	*facturaMunicipio += costoServicio;
+}
+
 void main(){
 	int seguir,
 		tipoServicio,
@@ -123,7 +130,7 @@ void main(){
 		//le agregamos al acumulador el costo de cada servicio realizado, este costo
 		//incluye todos los gastos del servicio:
 		
-		facturaMunicipio += costoServicio;
+		facturacionMunicipio(costoServicio, &facturaMunicipio);
 		
 		printf("!Gracias por solicitar nuestros servicios!\n");
 		//preguntamos si se desea realizar otro servicio:
