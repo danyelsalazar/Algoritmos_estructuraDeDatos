@@ -18,7 +18,7 @@ void opcionProductoUser(int tipoProducto, char *nombreProducto, float *precioUni
     int i = 0, producto;
 
 	printf("----------------------------------------\n         BIENVENIDO A PET SHOP\n----------------------------------------\n \n");
-    printf("Lista del tipo de producto seleccionado: \n------------------------------------\n");
+    printf("PRODUCTOS DISPONIBLES: \n------------------------------------\n");
 
     switch (tipoProducto) {
         case 1:
@@ -39,11 +39,14 @@ void opcionProductoUser(int tipoProducto, char *nombreProducto, float *precioUni
             printf("Ingresa la cantidad de unidades\n");
             scanf("%d", cantUnidades);
             
-            //recorro de vuelta el arreglo correspondiente
+            /*recorro de vuelta el arreglo correspondiente con el sizeof obtenemos el tamaño en bytes del arreglo
+			para obtener su tamaño de elemento usamos el sizeof(arreglo) / sizeof(arreglo[0])
+			o sea el tamaño en bytes entre el tamaño en bytes de uno de sus elementos puede ser cualquier elemento*/
             for (i = 0; i < sizeof(alimentoBalanceado) / sizeof(alimentoBalanceado[0]); i++) {
             	//verifico si el producto seleccionado es igual al que se esta iterando :
                 if (producto == (i + 1)) {
-                	//asigno el nombre del producto iterado i al nombreProducto:
+                	/*asigno el nombre del producto iterado i al nombreProducto:
+					usamos la funcion strcpy(nombreVariable, valor)*/
                     strcpy(nombreProducto, alimentoBalanceado[i]);
                     break;
                 }
