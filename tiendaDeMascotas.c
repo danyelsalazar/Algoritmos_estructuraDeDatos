@@ -2,100 +2,68 @@
 #include <string.h>
 #include <unistd.h>
 
-//declaramos e inicializamos los arreglos que contendran los productos segun su tipo:
-//use punteros de arreglo asi se crea un arreglo de estrings *nombreArreglo[] ={"","",....} seran variables globales:
+void mostrarListaProductos(int tipoProducto, char *nombreProducto, float *precioUnitario, int *cantUnidades, char *arreglo[]){
 
-char *alimentoBalanceado[] = {"Royal Canin", "Club Performance", "Nutrique"};
-char *textiles[] = {"Vestimenta", "Almohadones", "Mantas"};
-char *articulosVarios[] = {"Cuchas", "correas", "Bozales", "Juguetes"};
-
+	int i = 0, producto;
+	/*mostramos la lista especifica del tipo de producto seleccionado
+	para esto recorremos los arreglos con un for y en cada iteracion se muestra el elemento de dicha posicion
+	se itera hasta que el elemnto a iterar sea el ultimo osea NULL que fue lo que agregamos al final de cada arreglo*/
+	for(i = 0; arreglo[i] != NULL; i++){
+		printf("%d- %s \n", (i + 1), arreglo[i]);
+	}
+	printf("\n------------------------------------\n");
+    //limpiamos el buffer para evitar errores en el scanf
+    fflush(stdin);
+    //solicitamos el producto:
+    scanf("%d", &producto);
+    //solicitamos precio y cantidad de unidades del producto:
+    printf("Ingresa el precio Unitario: \n");
+    scanf("%f", precioUnitario);
+            
+    printf("Ingresa la cantidad de unidades\n");
+    scanf("%d", cantUnidades);
+    
+    /*recorro de vuelta el arreglo se itera el arreglo hasta que el elemento sea NULL*/
+    for (i = 0; arreglo[i] != NULL ; i++) {
+        //verifico si el producto seleccionado es igual al que se esta iterando :
+        if (producto == (i + 1)) {
+            /*asigno el nombre del producto iterado i al nombreProducto:
+			usamos la funcion strcpy(nombreVariable, valor)*/
+            strcpy(nombreProducto, arreglo[i]);
+            break;
+        }
+    }
+}
 /*La siguiente funcion se encarga de mostrar listas de productos segun el tipo de produccto
 seleciona por el usuario y le asignamos el nombre por referencia a la variable 
 nombreProducto y a cantUnidades. Recuerda por referencia signififca que afecta el valor de la variable principal */
 void opcionProductoUser(int tipoProducto, char *nombreProducto, float *precioUnitario, int *cantUnidades) {
 	
+	//declaramos e inicializamos los arreglos que contendran los productos segun su tipo:
+    //use punteros de arreglo asi se crea un arreglo de estrings *nombreArreglo[] ={"","",....}
+    const char *alimentoBalanceado[] = {"Royal Canin", "Club Performance", "Nutrique",NULL};
+    const char *textiles[] = {"Vestimenta", "Almohadones", "Mantas",NULL};
+    const char *articulosVarios[] = {"Cuchas", "correas", "Bozales", "Juguetes",NULL};
+	
 	//declaramos e inicializamos la variable i que sera la que usaremos para iterar los arreglos
-    int i = 0, producto;
+    //int i = 0, producto;
 
 	printf("----------------------------------------\n         BIENVENIDO A PET SHOP\n----------------------------------------\n \n");
     printf("PRODUCTOS DISPONIBLES: \n------------------------------------\n");
 
     switch (tipoProducto) {
         case 1:
-        	/*mostramos la lista especifica del tipo de producto seleccionado
-			para esto recorremos los arreglos con un for y en cada iteracion se muestra el elemento de dicha posicion*/
-            for (i = 0; i < sizeof(alimentoBalanceado) / sizeof(alimentoBalanceado[0]); i++) {
-                printf("%d- %s \n", (i + 1), alimentoBalanceado[i]);
-            }
-            printf("\n------------------------------------\n");
-            //limpiamos el buffer para evitar errores en el scanf
-            fflush(stdin);
-            //solicitamos el producto:
-            scanf("%d", &producto);
-            //solicitamos precio y cantidad de unidades del producto:
-            printf("Ingresa el precio Unitario: \n");
-            scanf("%f", precioUnitario);
-            
-            printf("Ingresa la cantidad de unidades\n");
-            scanf("%d", cantUnidades);
-            
-            /*recorro de vuelta el arreglo correspondiente con el sizeof obtenemos el tamaño en bytes del arreglo
-			para obtener su tamaño de elemento usamos el sizeof(arreglo) / sizeof(arreglo[0])
-			o sea el tamaño en bytes entre el tamaño en bytes de uno de sus elementos puede ser cualquier elemento*/
-            for (i = 0; i < sizeof(alimentoBalanceado) / sizeof(alimentoBalanceado[0]); i++) {
-            	//verifico si el producto seleccionado es igual al que se esta iterando :
-                if (producto == (i + 1)) {
-                	/*asigno el nombre del producto iterado i al nombreProducto:
-					usamos la funcion strcpy(nombreVariable, valor)*/
-                    strcpy(nombreProducto, alimentoBalanceado[i]);
-                    break;
-                }
-            }
+        	//llamamos a la funcion mostrar lista de productos
+        	mostrarListaProductos(tipoProducto,nombreProducto, precioUnitario, cantUnidades, alimentoBalanceado);
             break;
         //realizo exactamente lo mismo con los demas tipos, esto se puede optimizar DESPUES LO HAGO
         case 2:
-            for (i = 0; i < sizeof(textiles) / sizeof(textiles[0]); i++) {
-                printf("%d- %s \n", (i + 1), textiles[i]);
-            }
-            
-            printf("\n------------------------------------\n");
-            fflush(stdin);
-            scanf("%d", &producto);
-            
-            printf("Ingresa el precio Unitario: \n");
-            scanf("%f", precioUnitario);
-            
-            printf("Ingresa la cantidad de unidades\n");
-            scanf("%d", cantUnidades);
-            
-            for (i = 0; i < sizeof(textiles) / sizeof(textiles[0]); i++) {
-                if (producto == (i + 1)) {
-                    strcpy(nombreProducto, textiles[i]);
-                    break;
-                }
-            }
+            //llamamos a la funcion mostrar lista de productos
+            mostrarListaProductos(tipoProducto,nombreProducto, precioUnitario, cantUnidades,textiles);
             break;
         case 3:
-            for (i = 0; i < sizeof(articulosVarios) / sizeof(articulosVarios[0]); i++) {
-                printf("%d- %s \n", (i + 1), articulosVarios[i]);
-            }
-            
-            printf("\n------------------------------------\n");
-            fflush(stdin);
-            scanf("%d", &producto);
-            
-            printf("Ingresa el precio Unitario: \n");
-            scanf("%f", precioUnitario);
-            
-            printf("Ingresa la cantidad de unidades\n");
-            scanf("%d", cantUnidades);
-            
-            for (i = 0; i < sizeof(articulosVarios) / sizeof(articulosVarios[0]); i++) {
-                if (producto == (i + 1)) {
-                    strcpy(nombreProducto, articulosVarios[i]);
-                    break;
-                }
-            }
+            //llamamos a la funcion mostrar lista de productos
+            mostrarListaProductos(tipoProducto,nombreProducto, precioUnitario, cantUnidades,articulosVarios);
             break;
     }
 }
@@ -166,6 +134,7 @@ void calculoVentasYTickets(int tipoProducto, int *ticketsAlimentos, int *tickets
 }
 
 void main() {
+	
 	//declaramos las variables de entrada y de procesamiento e inicializamos en caso de ser necesario:
     int tipoProducto, 
 		nroTicket,
@@ -262,7 +231,7 @@ void main() {
 		//limpiamos la pantalla para la siguiente compra:
     	system("cls");
 	}
-	printf("Espera un momento mientras hacemos los calculos administratiuvos.........");
+	printf("Espera un momento mientras hacemos los calculos administrativos.........");
 	Sleep(2000);
 	//limpiamos consola
 	system("cls");
